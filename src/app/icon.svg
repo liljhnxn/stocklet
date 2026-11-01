@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f222e"/>
+      <stop offset="100%" stop-color="#0e0f13"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded Base Icon Background -->
+  <rect width="32" height="32" rx="8" fill="url(#bgGrad)"/>
+  <rect x="0.5" y="0.5" width="31" height="31" rx="7.5" stroke="rgba(139,92,246,0.3)"/>
+  
+  <!-- 3D Inventory Package -->
+  <!-- Top Face -->
+  <polygon points="16,6.5 24.5,11 16,15.5 7.5,11" fill="url(#purpleGrad)"/>
+  <!-- Left Face -->
+  <polygon points="7.5,11 16,15.5 16,25 7.5,20.5" fill="#6d28d9"/>
+  <!-- Right Face -->
+  <polygon points="16,15.5 24.5,11 24.5,20.5 16,25" fill="url(#greenGrad)"/>
+  
+  <!-- Inner Detail Seam Lines -->
+  <path d="M16 6.5 L16 15.5" stroke="rgba(255,255,255,0.4)" stroke-width="0.6"/>
+  <path d="M7.5 11 L16 15.5 L24.5 11" stroke="rgba(255,255,255,0.25)" stroke-width="0.6"/>
+</svg>
+
