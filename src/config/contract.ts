@@ -1,21 +1,9 @@
 import { Address } from "viem";
 import deployedInfo from "./deployedContract.json";
 
-// Order of precedence:
-// 1. Explicit env var NEXT_PUBLIC_STOCKLET_CONTRACT_ADDRESS (if not zero address)
-// 2. deployedContract.json address
-// 3. Fallback address
-const envAddress = process.env.NEXT_PUBLIC_STOCKLET_CONTRACT_ADDRESS;
-const hasValidEnvAddress =
-  envAddress &&
-  envAddress !== "0x0000000000000000000000000000000000000000" &&
-  envAddress.startsWith("0x");
-
-export const STOCKLET_CONTRACT_ADDRESS: Address = (
-  hasValidEnvAddress
-    ? envAddress
-    : (deployedInfo as { address?: string })?.address || "0xF7ebF38f6406ea89c53799489c1e045a7766d79A"
-) as Address;
+export const STOCKLET_CONTRACT_ADDRESS: Address =
+  (process.env.NEXT_PUBLIC_STOCKLET_CONTRACT_ADDRESS as Address) ||
+  "0xF7ebF38f6406ea89c53799489c1e045a7766d79A";
 
 export const STOCKLET_ABI = [
   {

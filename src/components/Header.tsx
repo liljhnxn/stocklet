@@ -3,15 +3,10 @@
 import React, { useState } from "react";
 import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from "wagmi";
 import { botchain } from "../config/chains";
-import { Package, Wallet, LogOut, ChevronDown, Check, Copy, ExternalLink, AlertTriangle, Globe } from "lucide-react";
+import { Package, Wallet, LogOut, ChevronDown, Check, Copy, ExternalLink, AlertTriangle } from "lucide-react";
 import { STOCKLET_CONTRACT_ADDRESS } from "../config/contract";
 
-interface HeaderProps {
-  customContractAddress?: string;
-  onUpdateContractAddress?: (newAddress: string) => void;
-}
-
-export function Header({ customContractAddress, onUpdateContractAddress }: HeaderProps) {
+export function Header() {
   const { address, isConnected, isConnecting } = useAccount();
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
@@ -20,8 +15,6 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
 
   const [copied, setCopied] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [showConfigModal, setShowConfigModal] = useState(false);
-  const [tempAddress, setTempAddress] = useState(customContractAddress || STOCKLET_CONTRACT_ADDRESS);
 
   const isCorrectChain = chainId === botchain.id || chainId === 31337;
 
@@ -32,7 +25,7 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const activeContract = customContractAddress || STOCKLET_CONTRACT_ADDRESS;
+  const activeContract = STOCKLET_CONTRACT_ADDRESS;
 
   return (
     <header className="border-b border-charcoal-800 bg-charcoal-900/80 backdrop-blur-md sticky top-0 z-40 transition-all">
@@ -47,8 +40,9 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
               <span className="text-xl font-bold tracking-tight text-white font-sans">
                 Stocklet
               </span>
-              <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-brand-purple/10 text-brand-purple border border-brand-purple/20">
-                BOT Chain
+              <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium bg-brand-purple/10 text-brand-purple border border-brand-purple/20">
+                <img src="/botchain-logo.png" alt="BOT Chain" className="h-3 w-3 rounded-sm object-cover" />
+                <span>BOT Chain</span>
               </span>
             </div>
             <p className="text-xs text-charcoal-400 font-normal hidden sm:block">
@@ -59,25 +53,26 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          {/* BOT Chain Ecosystem Quick Links */}
+          {/* BOT Chain Ecosystem Quick Links with Official Logo in Front */}
           <div className="hidden lg:flex items-center gap-2 mr-1">
             <a
               href="https://botchain.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/60 text-xs text-charcoal-300 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/60 text-xs text-charcoal-200 hover:text-white transition-colors"
             >
-              <Globe className="h-3.5 w-3.5 text-brand-green" />
-              <span>BOT Chain</span>
+              <img src="/botchain-logo.png" alt="BOT Chain Logo" className="h-4 w-4 rounded-sm object-cover" />
+              <span>BOT Chain Website</span>
             </a>
             <a
               href="https://scan.botchain.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/60 text-xs text-charcoal-300 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/60 text-xs text-charcoal-200 hover:text-white transition-colors"
             >
-              <ExternalLink className="h-3.5 w-3.5 text-brand-purple" />
-              <span>Explorer</span>
+              <img src="/botchain-logo.png" alt="BOT Chain Logo" className="h-4 w-4 rounded-sm object-cover" />
+              <span>BOT Chain Explorer</span>
+              <ExternalLink className="h-3 w-3 text-brand-purple ml-0.5" />
             </a>
           </div>
 
@@ -101,30 +96,22 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
             </div>
           )}
 
-          {/* Contract Address Badge with Explorer Link */}
-          <div className="hidden md:flex items-center gap-1.5">
+          {/* Mainnet Contract Address Badge with Direct Explorer Link */}
+          <div className="hidden md:flex items-center">
             <a
-              href={`https://scan.botchain.ai/address/${activeContract}`}
+              href={`https://scan.botchain.ai/address/${activeContract}#code`}
               target="_blank"
               rel="noopener noreferrer"
-              title="View Contract on BOT Chain Explorer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/50 text-xs text-charcoal-400 hover:text-charcoal-200 transition-colors"
+              title="View Verified Mainnet Contract on BOT Chain Explorer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/50 text-xs text-charcoal-400 hover:text-charcoal-200 transition-colors group"
             >
+              <img src="/botchain-logo.png" alt="BOT Chain" className="h-3.5 w-3.5 rounded-sm object-cover" />
               <span className="text-charcoal-500">Contract:</span>
-              <span className="font-mono text-charcoal-300">
-                {activeContract && activeContract !== "0x0000000000000000000000000000000000000000"
-                  ? `${activeContract.slice(0, 6)}...${activeContract.slice(-4)}`
-                  : "0xF7eb...d79A"}
+              <span className="font-mono text-charcoal-200 group-hover:text-white">
+                {`${activeContract.slice(0, 6)}...${activeContract.slice(-4)}`}
               </span>
               <ExternalLink className="h-3 w-3 text-brand-purple" />
             </a>
-
-            <button
-              onClick={() => setShowConfigModal(true)}
-              className="px-2 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/50 text-[11px] text-charcoal-400 hover:text-white"
-            >
-              Config
-            </button>
           </div>
 
           {/* Wallet Connect Button */}
@@ -183,7 +170,10 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
                     rel="noopener noreferrer"
                     className="flex items-center justify-between w-full px-2 py-2 text-xs text-charcoal-300 hover:text-white hover:bg-charcoal-800 rounded-lg transition-colors"
                   >
-                    <span>View on BOT Chain Explorer</span>
+                    <div className="flex items-center gap-1.5">
+                      <img src="/botchain-logo.png" alt="BOT Chain" className="h-3.5 w-3.5 rounded-sm object-cover" />
+                      <span>View on BOT Chain Explorer</span>
+                    </div>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
 
@@ -205,51 +195,6 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
           )}
         </div>
       </div>
-
-      {/* Contract Config Modal */}
-      {showConfigModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-2xl bg-charcoal-900 border border-charcoal-700 p-6 shadow-2xl">
-            <h3 className="text-lg font-semibold text-white mb-2">Smart Contract Configuration</h3>
-            <p className="text-xs text-charcoal-400 mb-4">
-              Configured for BOT Chain (Chain ID 677).
-            </p>
-            <div className="mb-4">
-              <label className="block text-xs font-medium text-charcoal-300 mb-1">
-                Contract Address (0x...)
-              </label>
-              <input
-                type="text"
-                value={tempAddress}
-                onChange={(e) => setTempAddress(e.target.value.trim())}
-                placeholder="0x..."
-                className="w-full px-3 py-2 text-sm bg-charcoal-950 border border-charcoal-700 rounded-xl text-white font-mono placeholder:text-charcoal-600 focus:outline-none focus:border-brand-purple"
-              />
-            </div>
-            <div className="flex items-center justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setShowConfigModal(false)}
-                className="px-4 py-2 text-xs font-medium text-charcoal-400 hover:text-white rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (onUpdateContractAddress) {
-                    onUpdateContractAddress(tempAddress);
-                  }
-                  setShowConfigModal(false);
-                }}
-                className="px-4 py-2 text-xs font-medium bg-brand-purple hover:bg-brand-purple-dark text-white rounded-lg transition-colors"
-              >
-                Save Address
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 }

@@ -43,26 +43,15 @@ export default function Home() {
   const chainId = useChainId();
   const explorerUrl = "https://scan.botchain.ai";
 
-  // Custom contract address override (saved in local storage if modified)
-  const [contractAddress, setContractAddress] = useState<string>(
-    STOCKLET_CONTRACT_ADDRESS
-  );
+  // Lock strictly to Mainnet verified contract address
+  const contractAddress = STOCKLET_CONTRACT_ADDRESS;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("stocklet_custom_address");
-      if (saved && saved.startsWith("0x")) {
-        setContractAddress(saved);
-      }
+      // Clear out any old cached testnet addresses from local storage
+      localStorage.removeItem("stocklet_custom_address");
     }
   }, []);
-
-  const handleUpdateContractAddress = (newAddr: string) => {
-    setContractAddress(newAddr);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("stocklet_custom_address", newAddr);
-    }
-  };
 
   // Modals state
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -307,10 +296,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-charcoal-950 font-sans selection:bg-brand-purple selection:text-white">
       {/* Header */}
-      <Header
-        customContractAddress={contractAddress}
-        onUpdateContractAddress={handleUpdateContractAddress}
-      />
+      <Header />
 
       {/* Notice Banner */}
       <PublicNoticeBanner />
@@ -484,8 +470,12 @@ export default function Home() {
         <section className="rounded-2xl bg-charcoal-900/80 border border-charcoal-800 p-6 sm:p-8 mt-12">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-brand-purple to-brand-green flex items-center justify-center shadow-lg shadow-brand-purple/20 ring-1 ring-white/10 flex-shrink-0">
-                <span className="text-xl font-black text-white tracking-wider">BOT</span>
+              <div className="h-16 w-16 rounded-2xl bg-black border border-charcoal-700/80 p-2 flex items-center justify-center shadow-xl shadow-brand-green/10 flex-shrink-0">
+                <img
+                  src="/botchain-logo.png"
+                  alt="BOT Chain Logo"
+                  className="h-full w-full object-contain rounded-xl"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -502,14 +492,15 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Required Ecosystem Links */}
+            {/* Required Ecosystem Links with Logo in Front */}
             <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
               <a
                 href="https://botchain.ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-charcoal-800 hover:bg-charcoal-750 text-white border border-charcoal-700 text-xs font-medium transition-all shadow-sm hover:border-brand-purple/40"
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-charcoal-800 hover:bg-charcoal-750 text-white border border-charcoal-700 text-xs font-medium transition-all shadow-sm hover:border-brand-purple/40 group"
               >
+                <img src="/botchain-logo.png" alt="BOT Chain" className="h-4 w-4 rounded-sm object-cover" />
                 <span>BOT Chain Website</span>
                 <span className="text-charcoal-400 text-[11px] font-mono">botchain.ai</span>
               </a>
@@ -518,19 +509,21 @@ export default function Home() {
                 href="https://scan.botchain.ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-charcoal-800 hover:bg-charcoal-750 text-white border border-charcoal-700 text-xs font-medium transition-all shadow-sm hover:border-brand-green/40"
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-charcoal-800 hover:bg-charcoal-750 text-white border border-charcoal-700 text-xs font-medium transition-all shadow-sm hover:border-brand-green/40 group"
               >
+                <img src="/botchain-logo.png" alt="BOT Chain" className="h-4 w-4 rounded-sm object-cover" />
                 <span>BOT Chain Explorer</span>
                 <span className="text-charcoal-400 text-[11px] font-mono">scan.botchain.ai</span>
               </a>
 
               <a
-                href={`https://scan.botchain.ai/address/${contractAddress}#code`}
+                href="https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-purple/15 hover:bg-brand-purple/25 text-brand-purple-light border border-brand-purple/30 text-xs font-medium transition-all shadow-sm"
               >
-                <span>Verified Contract</span>
+                <img src="/botchain-logo.png" alt="BOT Chain" className="h-4 w-4 rounded-sm object-cover" />
+                <span>Verified Mainnet Contract</span>
                 <span className="font-mono text-[11px]">0xF7eb...d79A</span>
               </a>
             </div>
@@ -538,38 +531,36 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer with BOT Chain branding and both official links */}
+      {/* Footer with BOT Chain branding and both official links with logo in front */}
       <footer className="border-t border-charcoal-850 py-8 bg-charcoal-900/60 text-xs text-charcoal-400">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="h-6 w-6 rounded-lg bg-gradient-to-tr from-brand-purple to-brand-green flex items-center justify-center text-[10px] font-black text-white">
-              B
-            </div>
+            <img src="/botchain-logo.png" alt="BOT Chain" className="h-6 w-6 rounded-md object-cover" />
             <span className="font-semibold text-white">Stocklet</span>
             <span className="text-charcoal-600">•</span>
             <span className="text-charcoal-400">Know what you have. Track what you sell.</span>
           </div>
 
-          {/* Official Required Links */}
+          {/* Official Required Links with Logo in Front */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs">
             <a
               href="https://botchain.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-charcoal-300 hover:text-white transition-colors flex items-center gap-1.5"
+              className="text-charcoal-300 hover:text-white transition-colors flex items-center gap-2 group"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-green" />
-              <span>BOT Chain Website: <strong>https://botchain.ai</strong></span>
+              <img src="/botchain-logo.png" alt="BOT Chain Logo" className="h-4 w-4 rounded-sm object-cover" />
+              <span>BOT Chain Website: <strong className="text-white group-hover:underline">https://botchain.ai</strong></span>
             </a>
 
             <a
               href="https://scan.botchain.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-charcoal-300 hover:text-white transition-colors flex items-center gap-1.5"
+              className="text-charcoal-300 hover:text-white transition-colors flex items-center gap-2 group"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-purple" />
-              <span>BOT Chain Explorer: <strong>https://scan.botchain.ai</strong></span>
+              <img src="/botchain-logo.png" alt="BOT Chain Explorer Logo" className="h-4 w-4 rounded-sm object-cover" />
+              <span>BOT Chain Explorer: <strong className="text-white group-hover:underline">https://scan.botchain.ai</strong></span>
             </a>
           </div>
         </div>
