@@ -15,13 +15,24 @@ Stocklet is a lightweight, decentralized Web3 inventory management application t
   - 🟢 **Healthy Stock**: > 5 units available.
   - 🟡 **Low Stock**: 1 – 5 units available.
   - 🔴 **Out of Stock**: 0 units available.
-- **Botchain Testnet Integration**: Preconfigured for Botchain Testnet (Chain ID `968`, RPC `https://rpc.bohr.life`, Explorer `https://scan.bohr.life`).
+- **Botchain Mainnet & Testnet Integration**: Preconfigured for Botchain Mainnet (Chain ID `677`, RPC `https://rpc.botchain.ai`, Explorer `https://scan.botchain.ai`, Token: `BOT`) and Botchain Testnet (Chain ID `968`).
 - **Dark Charcoal Minimalist Design**: Custom palette with muted purple and emerald green accents, responsive across desktop and mobile screens.
 
 ---
 
 ## ⚙️ Blockchain Configuration
 
+### Botchain Mainnet (Production)
+| Parameter | Value |
+| :--- | :--- |
+| **Network** | Botchain Mainnet |
+| **Chain ID** | `677` |
+| **Currency Symbol** | `BOT` (150 Million Total Supply) |
+| **RPC URL** | `https://rpc.botchain.ai` |
+| **Block Explorer** | [https://scan.botchain.ai](https://scan.botchain.ai) |
+| **Mainnet Contract** | [`0xF7ebF38f6406ea89c53799489c1e045a7766d79A`](https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code) |
+
+### Botchain Testnet
 | Parameter | Value |
 | :--- | :--- |
 | **Network** | Botchain Testnet |
@@ -29,6 +40,7 @@ Stocklet is a lightweight, decentralized Web3 inventory management application t
 | **Currency Symbol** | `BOHR` |
 | **RPC URL** | `https://rpc.bohr.life` |
 | **Block Explorer** | [https://scan.bohr.life](https://scan.bohr.life) |
+| **Testnet Contract** | [`0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC`](https://scan.bohr.life/address/0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC#code) |
 
 ---
 

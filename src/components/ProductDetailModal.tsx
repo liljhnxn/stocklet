@@ -141,12 +141,12 @@ export function ProductDetailModal({
             <div className="flex items-center justify-between">
               <span className="text-charcoal-400">Blockchain Explorer:</span>
               <a
-                href={`https://scan.bohr.life/address/${product.owner}`}
+                href={`${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL || "https://scan.botchain.ai"}/address/${product.owner}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-brand-purple hover:underline flex items-center gap-1"
               >
-                <span>View on BohrScan</span>
+                <span>View on Explorer</span>
                 <ExternalLink className="h-3 w-3" />
               </a>
             </div>

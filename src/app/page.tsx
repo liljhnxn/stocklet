@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import {
   useAccount,
+  useChainId,
   useReadContract,
   useWriteContract,
   useWaitForTransactionReceipt,
@@ -39,6 +40,9 @@ import {
 export default function Home() {
   const { address, isConnected } = useAccount();
   const { connectors, connect } = useConnect();
+  const chainId = useChainId();
+  const isMainnet = chainId === 677;
+  const explorerUrl = isMainnet ? "https://scan.botchain.ai" : "https://scan.bohr.life";
 
   // Custom contract address override (saved in local storage if modified)
   const [contractAddress, setContractAddress] = useState<string>(
@@ -379,7 +383,7 @@ export default function Home() {
                   <Layers className="h-5 w-5" />
                 </div>
                 <h4 className="text-base font-semibold text-white">
-                  Botchain Testnet (968)
+                  {isMainnet ? "Botchain Mainnet (677)" : "Botchain Network"}
                 </h4>
                 <p className="text-xs text-charcoal-400 mt-1.5 leading-relaxed">
                   Lightweight, gas-conscious Solidity architecture with zero backend server dependencies.
@@ -487,14 +491,14 @@ export default function Home() {
             <span>Know what you have. Track what you sell.</span>
           </div>
           <div className="flex items-center gap-4 text-[11px]">
-            <span>Botchain Testnet (Chain ID 968)</span>
+            <span>{isMainnet ? "Botchain Mainnet (Chain ID 677)" : "Botchain (Chain ID 968)"}</span>
             <a
-              href="https://scan.bohr.life"
+              href={explorerUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-brand-purple hover:underline"
             >
-              BohrScan Explorer
+              {isMainnet ? "BotchainScan Explorer" : "BohrScan Explorer"}
             </a>
           </div>
         </div>

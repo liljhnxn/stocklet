@@ -2,11 +2,12 @@
 ## Technical Whitepaper & Pitch Deck Overview
 **Tagline:** *Know what you have. Track what you sell.*
 
-**Version:** 1.0.0  
+**Version:** 1.1.0  
 **Date:** November 2026  
-**Network:** Botchain Testnet (Chain ID: `968`)  
-**Contract Address:** `0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC`  
-**Explorer:** [https://scan.bohr.life/address/0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC#code](https://scan.bohr.life/address/0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC#code)  
+**Primary Network:** Botchain Mainnet (Chain ID: `677`)  
+**Mainnet Contract Address:** `0xF7ebF38f6406ea89c53799489c1e045a7766d79A`  
+**Mainnet Explorer:** [https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code](https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code)  
+**Testnet Contract Address:** `0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC` (Chain ID: `968`)  
 **Repository:** [https://github.com/liljhnxn/stocklet](https://github.com/liljhnxn/stocklet)  
 
 ---
@@ -69,17 +70,17 @@ The `Stocklet` smart contract (`Stocklet.sol`) is engineered with gas economy, s
 
 ---
 
-### 5. Blockchain Integration (Botchain Testnet)
+### 5. Blockchain Integration (Botchain Mainnet & Testnet)
 
-| Parameter | Value |
-| :--- | :--- |
-| **Network Name** | Botchain Testnet |
-| **Chain ID** | `968` |
-| **Native Currency** | `BOHR` |
-| **RPC Endpoint** | `https://rpc.bohr.life` |
-| **Block Explorer** | [https://scan.bohr.life](https://scan.bohr.life) |
-| **Deployed Contract** | `0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC` |
-| **Verification Status** | Fully Verified with Solidity `0.8.20` & Paris EVM target |
+| Parameter | Mainnet Value | Testnet Value |
+| :--- | :--- | :--- |
+| **Network Name** | Botchain Mainnet | Botchain Testnet |
+| **Chain ID** | `677` | `968` |
+| **Native Currency** | `BOT` (150M Supply) | `BOHR` |
+| **RPC Endpoint** | `https://rpc.botchain.ai` | `https://rpc.bohr.life` |
+| **Block Explorer** | [https://scan.botchain.ai](https://scan.botchain.ai) | [https://scan.bohr.life](https://scan.bohr.life) |
+| **Deployed Contract** | `0xF7ebF38f6406ea89c53799489c1e045a7766d79A` | `0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC` |
+| **Verification Status** | Fully Verified on BotchainScan | Fully Verified on BohrScan |
 
 ---
 
@@ -191,3 +192,4 @@ Stocklet brings the sovereignty and reliability of Web3 to everyday merchants.
 - GitHub Repository:
   https://github.com/liljhnxn/stocklet
 - Network: Botchain Testnet (Chain ID: 968)
+

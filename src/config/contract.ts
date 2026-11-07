@@ -14,7 +14,7 @@ const hasValidEnvAddress =
 export const STOCKLET_CONTRACT_ADDRESS: Address = (
   hasValidEnvAddress
     ? envAddress
-    : (deployedInfo as { address?: string })?.address || "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    : (deployedInfo as { address?: string })?.address || "0xF7ebF38f6406ea89c53799489c1e045a7766d79A"
 ) as Address;
 
 export const STOCKLET_ABI = [

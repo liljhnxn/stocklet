@@ -6,24 +6,40 @@ import * as path from "path";
 async function main() {
   const [deployer] = await ethers.getSigners();
   const network = await ethers.provider.getNetwork();
+  const chainId = Number(network.chainId);
+  const isMainnet = chainId === 677;
 
   console.log("----------------------------------------------------");
-  console.log("Deploying Stocklet Contract...");
+  console.log(`Deploying Stocklet Contract to ${isMainnet ? "Botchain MAINNET" : network.name}...`);
   if (deployer) {
     const balance = await ethers.provider.getBalance(deployer.address);
     console.log(`Deployer address: ${deployer.address}`);
-    console.log(`Deployer balance: ${ethers.formatEther(balance)} BOHR/ETH`);
+    console.log(`Deployer balance: ${ethers.formatEther(balance)} ${isMainnet ? "BOT" : "BOHR/ETH"}`);
   } else {
     console.log("Deployer address: Unknown");
   }
-  console.log(`Network Name: ${network.name} (Chain ID: ${network.chainId})`);
-  console.log("----------------------------------------------------");
+  console.log(`Network Name: ${network.name} (Chain ID: ${chainId})`);
+
+  // Query gas price to ensure minimal gas fees
+  const feeData = await ethers.provider.getFeeData();
+  const gasPrice = feeData.gasPrice;
+  console.log(`Current Gas Price: ${gasPrice ? ethers.formatUnits(gasPrice, "gwei") : "auto"} gwei`);
 
   const Stocklet = await ethers.getContractFactory("Stocklet");
-  const stocklet = await Stocklet.deploy();
+
+  // Deploy with exact economical gas settings
+  const deployOptions: any = {};
+  if (gasPrice) {
+    deployOptions.gasPrice = gasPrice;
+  }
+
+  console.log("Broadcasting deployment transaction...");
+  const stocklet = await Stocklet.deploy(deployOptions);
   await stocklet.waitForDeployment();
 
   const deployedAddress = await stocklet.getAddress();
+  const deployTx = stocklet.deploymentTransaction();
+  const receipt = deployTx ? await deployTx.getTransaction() : null;
   console.log(`>>> Stocklet deployed successfully to: ${deployedAddress}`);
 
   // Update .env.local
@@ -34,8 +50,16 @@ async function main() {
       /NEXT_PUBLIC_STOCKLET_CONTRACT_ADDRESS=.*/,
       `NEXT_PUBLIC_STOCKLET_CONTRACT_ADDRESS="${deployedAddress}"`
     );
+
+    if (isMainnet) {
+      envContent = envContent.replace(/NEXT_PUBLIC_CHAIN_ID=.*/, 'NEXT_PUBLIC_CHAIN_ID=677');
+      envContent = envContent.replace(/NEXT_PUBLIC_CHAIN_NAME=.*/, 'NEXT_PUBLIC_CHAIN_NAME="Botchain Mainnet"');
+      envContent = envContent.replace(/NEXT_PUBLIC_RPC_URL=.*/, 'NEXT_PUBLIC_RPC_URL="https://rpc.botchain.ai"');
+      envContent = envContent.replace(/NEXT_PUBLIC_BLOCK_EXPLORER_URL=.*/, 'NEXT_PUBLIC_BLOCK_EXPLORER_URL="https://scan.botchain.ai"');
+    }
+
     fs.writeFileSync(envLocalPath, envContent);
-    console.log(">>> Updated NEXT_PUBLIC_STOCKLET_CONTRACT_ADDRESS in .env.local");
+    console.log(">>> Updated environment variables in .env.local");
   }
 
   // Save the contract address and ABI to src directory for frontend usage
@@ -89,13 +113,13 @@ async function main() {
       await deployTx.wait(5);
     }
 
-    console.log("Starting contract verification on BohrScan...");
+    console.log(`Starting contract verification on ${isMainnet ? "scan.botchain.ai" : "BohrScan"}...`);
     try {
       await hre.run("verify:verify", {
         address: deployedAddress,
         constructorArguments: [],
       });
-      console.log(">>> Contract verified successfully on BohrScan!");
+      console.log(`>>> Contract verified successfully on ${isMainnet ? "scan.botchain.ai" : "BohrScan"}!`);
     } catch (verifErr: any) {
       console.log(">>> Verification notice:", verifErr?.message || verifErr);
     }

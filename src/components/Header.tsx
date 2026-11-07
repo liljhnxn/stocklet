@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from "wagmi";
-import { botchainTestnet } from "../config/chains";
+import { botchainMainnet, botchainTestnet } from "../config/chains";
 import { Package, Wallet, LogOut, ChevronDown, Check, Copy, ExternalLink, AlertTriangle } from "lucide-react";
 import { STOCKLET_CONTRACT_ADDRESS } from "../config/contract";
 
@@ -23,7 +23,7 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
   const [showConfigModal, setShowConfigModal] = useState(false);
   const [tempAddress, setTempAddress] = useState(customContractAddress || STOCKLET_CONTRACT_ADDRESS);
 
-  const isCorrectChain = chainId === botchainTestnet.id || chainId === 31337;
+  const isCorrectChain = chainId === botchainMainnet.id || chainId === botchainTestnet.id || chainId === 31337;
 
   const copyAddress = () => {
     if (!address) return;
@@ -33,6 +33,7 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
   };
 
   const activeContract = customContractAddress || STOCKLET_CONTRACT_ADDRESS;
+  const explorerUrl = chainId === 677 ? "https://scan.botchain.ai" : "https://scan.bohr.life";
 
   return (
     <header className="border-b border-charcoal-800 bg-charcoal-900/80 backdrop-blur-md sticky top-0 z-40 transition-all">
@@ -65,15 +66,15 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
               {isCorrectChain ? (
                 <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-charcoal-850 border border-charcoal-700/60 text-xs text-charcoal-300">
                   <span className="h-2 w-2 rounded-full bg-brand-green animate-pulse" />
-                  <span>{chainId === 968 ? "Botchain Testnet" : "Hardhat Node"}</span>
+                  <span>{chainId === 677 ? "Botchain Mainnet" : chainId === 968 ? "Botchain Testnet" : "Hardhat Node"}</span>
                 </div>
               ) : (
                 <button
-                  onClick={() => switchChain?.({ chainId: botchainTestnet.id })}
+                  onClick={() => switchChain?.({ chainId: botchainMainnet.id })}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-400 hover:bg-amber-500/20 transition-colors"
                 >
                   <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
-                  <span>Switch to Botchain</span>
+                  <span>Switch to Botchain Mainnet</span>
                 </button>
               )}
             </div>
@@ -144,12 +145,12 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
                   </div>
 
                   <a
-                    href={`https://scan.bohr.life/address/${address}`}
+                    href={`${explorerUrl}/address/${address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between w-full px-2 py-2 text-xs text-charcoal-300 hover:text-white hover:bg-charcoal-800 rounded-lg transition-colors"
                   >
-                    <span>View on BohrScan</span>
+                    <span>View on {chainId === 677 ? "BotchainScan" : "BohrScan"}</span>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
 
