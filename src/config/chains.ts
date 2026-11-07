@@ -1,8 +1,8 @@
 import { defineChain } from "viem";
 
-export const botchainMainnet = defineChain({
+export const botchain = defineChain({
   id: 677,
-  name: "Botchain Mainnet",
+  name: "BOT Chain",
   nativeCurrency: {
     name: "BOT",
     symbol: "BOT",
@@ -15,33 +15,11 @@ export const botchainMainnet = defineChain({
   },
   blockExplorers: {
     default: {
-      name: "BotchainScan",
+      name: "BOT Chain Explorer",
       url: process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL || "https://scan.botchain.ai",
     },
   },
   testnet: false,
-});
-
-export const botchainTestnet = defineChain({
-  id: 968,
-  name: "Botchain Testnet",
-  nativeCurrency: {
-    name: "BOHR",
-    symbol: "BOHR",
-    decimals: 18,
-  },
-  rpcUrls: {
-    default: {
-      http: ["https://rpc.bohr.life"],
-    },
-  },
-  blockExplorers: {
-    default: {
-      name: "BohrScan",
-      url: "https://scan.bohr.life",
-    },
-  },
-  testnet: true,
 });
 
 export const hardhatLocalhost = defineChain({
@@ -60,4 +38,4 @@ export const hardhatLocalhost = defineChain({
   testnet: true,
 });
 
-export const supportedChains = [botchainMainnet, botchainTestnet, hardhatLocalhost] as const;
+export const supportedChains = [botchain, hardhatLocalhost] as const;

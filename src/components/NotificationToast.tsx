@@ -55,12 +55,12 @@ export function NotificationToast({ toasts, onDismiss }: NotificationToastProps)
 
               {toast.txHash && (
                 <a
-                  href={`${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL || "https://scan.botchain.ai"}/tx/${toast.txHash}`}
+                  href={`https://scan.botchain.ai/tx/${toast.txHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs text-brand-purple hover:text-brand-purple-light font-mono mt-2 underline underline-offset-2"
                 >
-                  <span>View on Explorer</span>
+                  <span>View on BOT Chain Explorer</span>
                   <ExternalLink className="h-3 w-3" />
                 </a>
               )}
@@ -79,4 +79,3 @@ export function NotificationToast({ toasts, onDismiss }: NotificationToastProps)
     </div>
   );
 }
-

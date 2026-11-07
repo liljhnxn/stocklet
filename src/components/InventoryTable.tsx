@@ -157,7 +157,7 @@ export function InventoryTable({
       {isLoading ? (
         <div className="py-20 flex flex-col items-center justify-center text-center">
           <div className="h-8 w-8 rounded-full border-2 border-brand-purple border-t-transparent animate-spin mb-3" />
-          <p className="text-sm text-charcoal-300">Fetching inventory from Botchain Testnet...</p>
+          <p className="text-sm text-charcoal-300">Fetching inventory from BOT Chain...</p>
         </div>
       ) : filteredProducts.length === 0 ? (
         <div className="py-20 px-4 flex flex-col items-center justify-center text-center">

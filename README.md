@@ -2,7 +2,16 @@
 
 > **Know what you have. Track what you sell.**
 
-Stocklet is a lightweight, decentralized Web3 inventory management application tailored for small businesses. Business owners connect their MetaMask wallet to register products, manage available inventory, and atomically record sales directly on **Botchain Testnet** (Chain ID: 968) or a local development node.
+Stocklet is a lightweight, decentralized Web3 inventory management application tailored for small businesses. Business owners connect their MetaMask wallet to register products, manage available inventory, and atomically record sales directly on **BOT Chain** (Chain ID: `677`) or a local development node.
+
+---
+
+## 🌐 BOT Chain Ecosystem
+
+Stocklet is built natively on the **BOT Chain** ecosystem:
+- **BOT Chain Website**: [https://botchain.ai](https://botchain.ai)
+- **BOT Chain Explorer**: [https://scan.botchain.ai](https://scan.botchain.ai)
+- **Verified Stocklet Contract**: [`0xF7ebF38f6406ea89c53799489c1e045a7766d79A`](https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code)
 
 ---
 
@@ -15,32 +24,22 @@ Stocklet is a lightweight, decentralized Web3 inventory management application t
   - 🟢 **Healthy Stock**: > 5 units available.
   - 🟡 **Low Stock**: 1 – 5 units available.
   - 🔴 **Out of Stock**: 0 units available.
-- **Botchain Mainnet & Testnet Integration**: Preconfigured for Botchain Mainnet (Chain ID `677`, RPC `https://rpc.botchain.ai`, Explorer `https://scan.botchain.ai`, Token: `BOT`) and Botchain Testnet (Chain ID `968`).
+- **BOT Chain Integration**: Built and verified for BOT Chain (Chain ID `677`, RPC `https://rpc.botchain.ai`, Explorer `https://scan.botchain.ai`, Native Token: `BOT`).
 - **Dark Charcoal Minimalist Design**: Custom palette with muted purple and emerald green accents, responsive across desktop and mobile screens.
 
 ---
 
 ## ⚙️ Blockchain Configuration
 
-### Botchain Mainnet (Production)
 | Parameter | Value |
 | :--- | :--- |
-| **Network** | Botchain Mainnet |
+| **Network** | BOT Chain |
 | **Chain ID** | `677` |
 | **Currency Symbol** | `BOT` (150 Million Total Supply) |
 | **RPC URL** | `https://rpc.botchain.ai` |
 | **Block Explorer** | [https://scan.botchain.ai](https://scan.botchain.ai) |
-| **Mainnet Contract** | [`0xF7ebF38f6406ea89c53799489c1e045a7766d79A`](https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code) |
-
-### Botchain Testnet
-| Parameter | Value |
-| :--- | :--- |
-| **Network** | Botchain Testnet |
-| **Chain ID** | `968` |
-| **Currency Symbol** | `BOHR` |
-| **RPC URL** | `https://rpc.bohr.life` |
-| **Block Explorer** | [https://scan.bohr.life](https://scan.bohr.life) |
-| **Testnet Contract** | [`0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC`](https://scan.bohr.life/address/0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC#code) |
+| **Website** | [https://botchain.ai](https://botchain.ai) |
+| **Verified Contract** | [`0xF7ebF38f6406ea89c53799489c1e045a7766d79A`](https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code) |
 
 ---
 
@@ -115,42 +114,21 @@ Expected output:
 
 ## 📜 Smart Contract Deployment
 
-### Option A: Deploy to Local Hardhat Network
-
-1. Start a local Hardhat node in one terminal:
-   ```bash
-   npx hardhat node
-   ```
-
-2. Deploy the contract:
-   ```bash
-   npm run deploy:local
-   ```
-
-The script compiles the contract, deploys it, and automatically exports:
-- Contract ABI to `src/abi/Stocklet.json`
-- Deployment metadata to `src/config/deployedContract.json`
-
-### Option B: Deploy to Botchain Testnet
+### Option A: Deploy to BOT Chain
 
 1. Set your deployer private key in `.env.local`:
    ```env
    PRIVATE_KEY="your_private_key_here"
-   NEXT_PUBLIC_RPC_URL="https://rpc.bohr.life"
-   NEXT_PUBLIC_CHAIN_ID=968
+   NEXT_PUBLIC_RPC_URL="https://rpc.botchain.ai"
+   NEXT_PUBLIC_CHAIN_ID=677
    ```
 
 2. Run the deployment script:
    ```bash
-   npm run deploy:botchain
+   npm run deploy:mainnet
    ```
 
-3. Update `.env.local` with the deployed address:
-   ```env
-   NEXT_PUBLIC_STOCKLET_CONTRACT_ADDRESS="0x..."
-   ```
-
-*(Alternatively, you can click the **Contract** pill in the top header within the running application to enter or change the contract address at runtime.)*
+3. The script automatically deploys, verifies on `https://scan.botchain.ai`, and updates `.env.local`.
 
 ---
 
@@ -167,7 +145,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### Using the App:
 
 1. **Connect Wallet**: Click **Connect Wallet** in the top-right corner to connect MetaMask.
-2. **Switch Network**: If your wallet is on Ethereum or another network, click **Switch to Botchain** to switch to Chain ID `968`.
+2. **Switch Network**: If your wallet is on Ethereum or another network, click **Switch to BOT Chain** to switch to Chain ID `677`.
 3. **Add Product**: Click **+ Add Product**, enter the product name, initial stock, and unit price, and confirm the transaction in MetaMask.
 4. **Record Sale**: Click **Record Sale** on any product row. Enter the quantity sold (must not exceed available stock). The contract atomically decrements available inventory and increments sales.
 5. **Edit / Delete**: Edit product name, stock, or price at any time, or click **Delete** to deactivate the product on-chain.
@@ -182,17 +160,17 @@ Stocklet/
 ├── contracts/
 │   └── Stocklet.sol            # Core inventory smart contract
 ├── scripts/
-│   └── deploy.ts               # Deployment script & ABI export helper
+│   └── deploy.ts               # Deployment & ABI export script
 ├── test/
 │   └── Stocklet.test.ts        # Unit test suite (15 tests)
 ├── src/
 │   ├── app/
 │   │   ├── globals.css         # Charcoal theme & subtle glow effects
 │   │   ├── layout.tsx          # Root Next.js layout & metadata
-│   │   ├── page.tsx            # Main dashboard & wallet view
+│   │   ├── page.tsx            # Main dashboard, ecosystem section & wallet view
 │   │   └── providers.tsx       # Wagmi & React Query providers
 │   ├── components/
-│   │   ├── Header.tsx          # Navbar, wallet button & contract config
+│   │   ├── Header.tsx          # Navbar, wallet button & ecosystem links
 │   │   ├── StatCard.tsx        # Dashboard metric cards
 │   │   ├── InventoryTable.tsx  # Product table & search/filter controls
 │   │   ├── AddProductModal.tsx # Product creation modal
@@ -202,12 +180,12 @@ Stocklet/
 │   │   ├── PublicNoticeBanner.tsx # Blockchain transparency banner
 │   │   └── NotificationToast.tsx  # Transaction status toast system
 │   ├── config/
-│   │   ├── chains.ts           # Botchain Testnet chain definition
+│   │   ├── chains.ts           # BOT Chain chain definition (Chain ID 677)
 │   │   ├── contract.ts         # Contract address & typed helpers
 │   │   └── wagmi.ts            # Wagmi client configuration
 │   └── abi/
 │       └── Stocklet.json       # Generated contract ABI
-├── hardhat.config.ts           # Hardhat config for Botchain & local
+├── hardhat.config.ts           # Hardhat config for BOT Chain
 ├── tailwind.config.ts          # Custom dark charcoal design tokens
 ├── package.json
 └── README.md
@@ -217,5 +195,4 @@ Stocklet/
 
 ## 📄 License
 
-MIT License. Designed for small businesses and Web3 builders.
-
+MIT License. Designed for small businesses and Web3 builders on **BOT Chain**.

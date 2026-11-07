@@ -10,11 +10,11 @@ async function main() {
   const isMainnet = chainId === 677;
 
   console.log("----------------------------------------------------");
-  console.log(`Deploying Stocklet Contract to ${isMainnet ? "Botchain MAINNET" : network.name}...`);
+  console.log(`Deploying Stocklet Contract to BOT Chain (${network.name})...`);
   if (deployer) {
     const balance = await ethers.provider.getBalance(deployer.address);
     console.log(`Deployer address: ${deployer.address}`);
-    console.log(`Deployer balance: ${ethers.formatEther(balance)} ${isMainnet ? "BOT" : "BOHR/ETH"}`);
+    console.log(`Deployer balance: ${ethers.formatEther(balance)} BOT`);
   } else {
     console.log("Deployer address: Unknown");
   }
@@ -113,13 +113,13 @@ async function main() {
       await deployTx.wait(5);
     }
 
-    console.log(`Starting contract verification on ${isMainnet ? "scan.botchain.ai" : "BohrScan"}...`);
+    console.log("Starting contract verification on scan.botchain.ai...");
     try {
       await hre.run("verify:verify", {
         address: deployedAddress,
         constructorArguments: [],
       });
-      console.log(`>>> Contract verified successfully on ${isMainnet ? "scan.botchain.ai" : "BohrScan"}!`);
+      console.log(">>> Contract verified successfully on scan.botchain.ai!");
     } catch (verifErr: any) {
       console.log(">>> Verification notice:", verifErr?.message || verifErr);
     }

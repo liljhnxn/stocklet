@@ -14,7 +14,7 @@ export function PublicNoticeBanner() {
         <div className="flex items-center gap-2.5 text-xs text-charcoal-300">
           <Info className="h-4 w-4 text-brand-purple flex-shrink-0" />
           <span>
-            <strong className="text-charcoal-100 font-medium">Public Blockchain Notice:</strong> All product and sales records are immutably and publicly visible on Botchain Testnet. Do not store sensitive or confidential business information.
+            <strong className="text-charcoal-100 font-medium">Public Blockchain Notice:</strong> All product and sales records are immutably and publicly visible on BOT Chain (Chain ID: 677). Do not store sensitive or confidential business information.
           </span>
         </div>
         <button
@@ -28,4 +28,3 @@ export function PublicNoticeBanner() {
     </div>
   );
 }
-

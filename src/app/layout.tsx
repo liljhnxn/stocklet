@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "Stocklet | Know what you have. Track what you sell.",
   description:
-    "Lightweight, secure Web3 inventory management application for small businesses powered by Botchain Testnet.",
+    "Lightweight, secure Web3 inventory management application for small businesses powered by BOT Chain.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

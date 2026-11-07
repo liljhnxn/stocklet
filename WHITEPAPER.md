@@ -4,10 +4,12 @@
 
 **Version:** 1.1.0  
 **Date:** November 2026  
-**Primary Network:** Botchain Mainnet (Chain ID: `677`)  
-**Mainnet Contract Address:** `0xF7ebF38f6406ea89c53799489c1e045a7766d79A`  
-**Mainnet Explorer:** [https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code](https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code)  
-**Testnet Contract Address:** `0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC` (Chain ID: `968`)  
+**Network:** BOT Chain (Chain ID: `677`)  
+**Native Currency:** `BOT` (150 Million Total Supply)  
+**Contract Address:** `0xF7ebF38f6406ea89c53799489c1e045a7766d79A`  
+**BOT Chain Website:** [https://botchain.ai](https://botchain.ai)  
+**BOT Chain Explorer:** [https://scan.botchain.ai](https://scan.botchain.ai)  
+**Verified Contract on Explorer:** [https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code](https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code)  
 **Repository:** [https://github.com/liljhnxn/stocklet](https://github.com/liljhnxn/stocklet)  
 
 ---
@@ -17,7 +19,7 @@
 ### 1. Abstract
 Small businesses worldwide face an ongoing dilemma: traditional inventory management software is plagued by bloated subscription fees, vendor lock-in, centralized database outages, and complex onboarding. Conversely, manual spreadsheets are error-prone and fail to synchronize reliably. 
 
-**Stocklet** introduces a lean, decentralized alternative built natively on the **Botchain Testnet**. By utilizing the EVM-compatible Botchain architecture, Stocklet allows business owners to connect their self-custodial Web3 wallet (e.g., MetaMask), register product catalogs, update quantities, and atomically record sales with automatic stock deduction. Stocklet operates entirely without a centralized database, API server, or middleman custody, ensuring high availability, verifiable accounting, and total business independence.
+**Stocklet** introduces a lean, decentralized alternative built natively on **BOT Chain**. By utilizing the EVM-compatible BOT Chain architecture, Stocklet allows business owners to connect their self-custodial Web3 wallet (e.g., MetaMask), register product catalogs, update quantities, and atomically record sales with automatic stock deduction. Stocklet operates entirely without a centralized database, API server, or middleman custody, ensuring high availability, verifiable accounting, and total business independence.
 
 ---
 
@@ -46,9 +48,9 @@ Stocklet reimagines inventory management as a streamlined, utility-first decentr
          │
          ▼
 [ Next.js 14 Frontend (App Router, Tailwind CSS, Wagmi v2, Viem) ]
-         │ (RPC over HTTPS - https://rpc.bohr.life)
+         │ (RPC over HTTPS - https://rpc.botchain.ai)
          ▼
-[ Botchain Testnet (Chain ID: 968) ]
+[ BOT Chain (Chain ID: 677) ]
          │
          ▼
 [ Stocklet.sol Smart Contract (Paris EVM, Solidity 0.8.20) ]
@@ -70,17 +72,18 @@ The `Stocklet` smart contract (`Stocklet.sol`) is engineered with gas economy, s
 
 ---
 
-### 5. Blockchain Integration (Botchain Mainnet & Testnet)
+### 5. Blockchain Integration (BOT Chain)
 
-| Parameter | Mainnet Value | Testnet Value |
-| :--- | :--- | :--- |
-| **Network Name** | Botchain Mainnet | Botchain Testnet |
-| **Chain ID** | `677` | `968` |
-| **Native Currency** | `BOT` (150M Supply) | `BOHR` |
-| **RPC Endpoint** | `https://rpc.botchain.ai` | `https://rpc.bohr.life` |
-| **Block Explorer** | [https://scan.botchain.ai](https://scan.botchain.ai) | [https://scan.bohr.life](https://scan.bohr.life) |
-| **Deployed Contract** | `0xF7ebF38f6406ea89c53799489c1e045a7766d79A` | `0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC` |
-| **Verification Status** | Fully Verified on BotchainScan | Fully Verified on BohrScan |
+| Parameter | Value |
+| :--- | :--- |
+| **Network Name** | BOT Chain |
+| **Chain ID** | `677` |
+| **Native Currency** | `BOT` (150 Million Total Supply) |
+| **RPC Endpoint** | `https://rpc.botchain.ai` |
+| **Official Website** | [https://botchain.ai](https://botchain.ai) |
+| **Block Explorer** | [https://scan.botchain.ai](https://scan.botchain.ai) |
+| **Deployed Contract** | `0xF7ebF38f6406ea89c53799489c1e045a7766d79A` |
+| **Verification Status** | Fully Verified with Solidity `0.8.20` on BOT Chain Explorer |
 
 ---
 
@@ -101,10 +104,12 @@ STOCKLET
 Know what you have. Track what you sell.
 
 A lightweight, serverless Web3 inventory & sales tracker for small businesses.
-Built natively on Botchain Testnet (Chain ID: 968).
+Built natively on BOT Chain (Chain ID: 677).
 
 Website / Demo: http://localhost:3000
-Contract: 0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC
+BOT Chain Website: https://botchain.ai
+BOT Chain Explorer: https://scan.botchain.ai
+Verified Contract: https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code
 GitHub: https://github.com/liljhnxn/stocklet
 
 ================================================================================
@@ -142,7 +147,7 @@ SLIDE 4: PRODUCT WALKTHROUGH
 3. Instant Sale Recording:
    - Real-time stock calculation, max button, and atomic on-chain execution.
 4. Comprehensive Product Inspector:
-   - Timestamp, units sold, owner address, and direct BohrScan explorer links.
+   - Timestamp, units sold, owner address, and direct BOT Chain Explorer links.
 
 ================================================================================
 SLIDE 5: UNDER THE HOOD
@@ -150,7 +155,7 @@ SLIDE 5: UNDER THE HOOD
 - Frontend: Next.js 14 (App Router) + TypeScript + Tailwind CSS
 - Web3 Stack: Wagmi v2 + Viem + TanStack React Query
 - Smart Contract: Solidity 0.8.20 + Hardhat Toolbox
-- Blockchain: Botchain Testnet (Chain ID: 968, ultra-low fees, fast block times)
+- Blockchain: BOT Chain (Chain ID: 677, Token: BOT, ultra-low fees, fast block times)
 - Tested & Audited: 15 comprehensive unit tests covering all edge cases.
 
 ================================================================================
@@ -159,7 +164,7 @@ SLIDE 6: COMPETITIVE ADVANTAGE
 Feature               | Traditional SaaS (Shopify/Square) | Spreadsheets | Stocklet
 ----------------------|-----------------------------------|--------------|----------
 Monthly Fee           | $39 - $299/mo                     | Free         | Zero SaaS Fee
-Backend Dependency    | Centralized Cloud                 | Local File   | Botchain (100% Uptime)
+Backend Dependency    | Centralized Cloud                 | Local File   | BOT Chain (100% Uptime)
 Atomic Oversell Guard | Partial                           | None         | Guaranteed by Contract
 Onboarding Time       | 30+ Minutes                       | 10 Minutes   | 5 Seconds (MetaMask)
 Data Ownership        | Platform Owned                    | Device Only  | Wallet Self-Custodial
@@ -168,7 +173,7 @@ Data Ownership        | Platform Owned                    | Device Only  | Walle
 SLIDE 7: ROADMAP
 ================================================================================
 - Phase 1 (Delivered):
-  ✓ Core Solidity contract deployed & verified on Botchain Testnet.
+  ✓ Core Solidity contract deployed & verified on BOT Chain.
   ✓ Next.js dashboard with inventory creation, sales deduction & analytics.
   ✓ 15 unit tests passing with full test coverage.
 
@@ -178,7 +183,6 @@ SLIDE 7: ROADMAP
   - Barcode / QR code mobile scanning integration.
 
 - Phase 3 (Ecosystem Scale):
-  - Botchain Mainnet deployment.
   - Optional Web3 invoice generation and micro-receipt minting.
   - Decentralized supplier re-order notifications.
 
@@ -187,9 +191,12 @@ SLIDE 8: SUMMARY & LINKS
 ================================================================================
 Stocklet brings the sovereignty and reliability of Web3 to everyday merchants.
 
-- Verified Contract on BohrScan:
-  https://scan.bohr.life/address/0x3d0c8231fACAff13de999E179B03e33ACaa7c2dC#code
+- BOT Chain Website:
+  https://botchain.ai
+- BOT Chain Explorer:
+  https://scan.botchain.ai
+- Verified Contract on BOT Chain Explorer:
+  https://scan.botchain.ai/address/0xF7ebF38f6406ea89c53799489c1e045a7766d79A#code
 - GitHub Repository:
   https://github.com/liljhnxn/stocklet
-- Network: Botchain Testnet (Chain ID: 968)
-
+- Network: BOT Chain (Chain ID: 677)

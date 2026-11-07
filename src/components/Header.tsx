@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from "wagmi";
-import { botchainMainnet, botchainTestnet } from "../config/chains";
-import { Package, Wallet, LogOut, ChevronDown, Check, Copy, ExternalLink, AlertTriangle } from "lucide-react";
+import { botchain } from "../config/chains";
+import { Package, Wallet, LogOut, ChevronDown, Check, Copy, ExternalLink, AlertTriangle, Globe } from "lucide-react";
 import { STOCKLET_CONTRACT_ADDRESS } from "../config/contract";
 
 interface HeaderProps {
@@ -23,7 +23,7 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
   const [showConfigModal, setShowConfigModal] = useState(false);
   const [tempAddress, setTempAddress] = useState(customContractAddress || STOCKLET_CONTRACT_ADDRESS);
 
-  const isCorrectChain = chainId === botchainMainnet.id || chainId === botchainTestnet.id || chainId === 31337;
+  const isCorrectChain = chainId === botchain.id || chainId === 31337;
 
   const copyAddress = () => {
     if (!address) return;
@@ -33,7 +33,6 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
   };
 
   const activeContract = customContractAddress || STOCKLET_CONTRACT_ADDRESS;
-  const explorerUrl = chainId === 677 ? "https://scan.botchain.ai" : "https://scan.bohr.life";
 
   return (
     <header className="border-b border-charcoal-800 bg-charcoal-900/80 backdrop-blur-md sticky top-0 z-40 transition-all">
@@ -49,7 +48,7 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
                 Stocklet
               </span>
               <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-brand-purple/10 text-brand-purple border border-brand-purple/20">
-                Web3
+                BOT Chain
               </span>
             </div>
             <p className="text-xs text-charcoal-400 font-normal hidden sm:block">
@@ -60,39 +59,73 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
+          {/* BOT Chain Ecosystem Quick Links */}
+          <div className="hidden lg:flex items-center gap-2 mr-1">
+            <a
+              href="https://botchain.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/60 text-xs text-charcoal-300 hover:text-white transition-colors"
+            >
+              <Globe className="h-3.5 w-3.5 text-brand-green" />
+              <span>BOT Chain</span>
+            </a>
+            <a
+              href="https://scan.botchain.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/60 text-xs text-charcoal-300 hover:text-white transition-colors"
+            >
+              <ExternalLink className="h-3.5 w-3.5 text-brand-purple" />
+              <span>Explorer</span>
+            </a>
+          </div>
+
           {/* Network Indicator */}
           {isConnected && (
             <div>
               {isCorrectChain ? (
                 <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-charcoal-850 border border-charcoal-700/60 text-xs text-charcoal-300">
                   <span className="h-2 w-2 rounded-full bg-brand-green animate-pulse" />
-                  <span>{chainId === 677 ? "Botchain Mainnet" : chainId === 968 ? "Botchain Testnet" : "Hardhat Node"}</span>
+                  <span>{chainId === 677 ? "BOT Chain (677)" : "Hardhat Node"}</span>
                 </div>
               ) : (
                 <button
-                  onClick={() => switchChain?.({ chainId: botchainMainnet.id })}
+                  onClick={() => switchChain?.({ chainId: botchain.id })}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-400 hover:bg-amber-500/20 transition-colors"
                 >
                   <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
-                  <span>Switch to Botchain Mainnet</span>
+                  <span>Switch to BOT Chain</span>
                 </button>
               )}
             </div>
           )}
 
-          {/* Contract Address Badge */}
-          <button
-            onClick={() => setShowConfigModal(true)}
-            title="Configure Smart Contract Address"
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/50 text-xs text-charcoal-400 hover:text-charcoal-200 transition-colors"
-          >
-            <span className="text-charcoal-500">Contract:</span>
-            <span className="font-mono text-charcoal-300">
-              {activeContract && activeContract !== "0x0000000000000000000000000000000000000000"
-                ? `${activeContract.slice(0, 6)}...${activeContract.slice(-4)}`
-                : "Not Configured"}
-            </span>
-          </button>
+          {/* Contract Address Badge with Explorer Link */}
+          <div className="hidden md:flex items-center gap-1.5">
+            <a
+              href={`https://scan.botchain.ai/address/${activeContract}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="View Contract on BOT Chain Explorer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/50 text-xs text-charcoal-400 hover:text-charcoal-200 transition-colors"
+            >
+              <span className="text-charcoal-500">Contract:</span>
+              <span className="font-mono text-charcoal-300">
+                {activeContract && activeContract !== "0x0000000000000000000000000000000000000000"
+                  ? `${activeContract.slice(0, 6)}...${activeContract.slice(-4)}`
+                  : "0xF7eb...d79A"}
+              </span>
+              <ExternalLink className="h-3 w-3 text-brand-purple" />
+            </a>
+
+            <button
+              onClick={() => setShowConfigModal(true)}
+              className="px-2 py-1.5 rounded-lg bg-charcoal-850 hover:bg-charcoal-800 border border-charcoal-700/50 text-[11px] text-charcoal-400 hover:text-white"
+            >
+              Config
+            </button>
+          </div>
 
           {/* Wallet Connect Button */}
           {!isConnected ? (
@@ -145,12 +178,12 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
                   </div>
 
                   <a
-                    href={`${explorerUrl}/address/${address}`}
+                    href={`https://scan.botchain.ai/address/${address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between w-full px-2 py-2 text-xs text-charcoal-300 hover:text-white hover:bg-charcoal-800 rounded-lg transition-colors"
                   >
-                    <span>View on {chainId === 677 ? "BotchainScan" : "BohrScan"}</span>
+                    <span>View on BOT Chain Explorer</span>
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
 
@@ -179,7 +212,7 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
           <div className="w-full max-w-md rounded-2xl bg-charcoal-900 border border-charcoal-700 p-6 shadow-2xl">
             <h3 className="text-lg font-semibold text-white mb-2">Smart Contract Configuration</h3>
             <p className="text-xs text-charcoal-400 mb-4">
-              Enter the deployed Stocklet contract address on Botchain Testnet (Chain ID 968) or Hardhat Localhost.
+              Configured for BOT Chain (Chain ID 677).
             </p>
             <div className="mb-4">
               <label className="block text-xs font-medium text-charcoal-300 mb-1">
@@ -220,4 +253,3 @@ export function Header({ customContractAddress, onUpdateContractAddress }: Heade
     </header>
   );
 }
-

@@ -2,7 +2,7 @@
   "name": "stocklet",
   "version": "1.0.0",
   "private": true,
-  "description": "Stocklet - Web3 Inventory Management on Botchain Testnet",
+  "description": "Stocklet - Web3 Inventory Management on BOT Chain",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,7 +11,6 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
-    "deploy:botchain": "hardhat run scripts/deploy.ts --network botchain",
     "deploy:mainnet": "hardhat run scripts/deploy.ts --network mainnet"
   },
   "dependencies": {
